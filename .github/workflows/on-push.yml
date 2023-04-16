@@ -1,0 +1,43 @@
+name: Tests and linters
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build_test_image:
+    name: Tests and linters
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+
+
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v2
+
+      - name: Build image
+        run: docker build . --tag alert-bot:0.0
+
+
+      - name: Run tests
+        run: docker run
+          -e PYTHONPATH=.
+          -e PYTEST=true
+          -e POSTGRES_HOST=postgres
+          -e POSTGRES_TEST_DATABASE=postgres
+          --network ${{ job.container.network }}
+          alert-bot:0.0
+          python -m pytest --disable-warnings
+
+
+      - name: Run linters
+        run: docker run
+          --network ${{ job.container.network }}
+          alert-bot:0.0
+          pre-commit run --all-files

@@ -1,0 +1,5 @@
+.idea
+test_config.py
+venv
+.mypy_cache
+.pytest_cache
