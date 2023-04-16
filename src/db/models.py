@@ -115,7 +115,7 @@ class Admin(Base):
 class Account(Base):
     __tablename__ = 'external_account'
     __table_args__ = (
-        UniqueConstraint('site', 'api_key'),
+        UniqueConstraint('site', 'name'),
     )
 
     class Site(str, Enum):
@@ -125,6 +125,7 @@ class Account(Base):
         MPSTATS = 'mpstats'
 
     id: Mapped[int] = mapped_column(Integer, autoincrement=True, primary_key=True)
+    name: Mapped[str] = mapped_column(String, nullable=False)
     site: Mapped[str] = mapped_column(String, nullable=False)
     api_key: Mapped[str] = mapped_column(String, nullable=False)
     client_id: Mapped[int] = mapped_column(Integer, nullable=True, default=None)

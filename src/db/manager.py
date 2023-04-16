@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import (AsyncEngine, AsyncSession,
                                     async_sessionmaker, create_async_engine)
 from sqlalchemy.ext.asyncio.session import _AsyncSessionContextManager
 
-from src.db.models import Admin, IntervalTask, Product, ScheduleTask
+from src.db.models import Account, Admin, IntervalTask, Product, ScheduleTask
 
 logger = JsonLogger.with_default_handlers()
 
@@ -216,6 +216,46 @@ class DbManager:
         if task_type in (IntervalTask.Type.DOWN_RATE, IntervalTask.Type.DISAPPEARANCE):
             return IntervalTask
         raise Exception
+
+    # Accounts functions
+    async def get_accounts_by_site(self, site: Account.Site) -> Sequence[Account]:
+        async with self.session() as session:
+            return (
+                await session.scalars(
+                    select(Account)
+                    .where(Account.site == site)
+                )
+            ).all()
+
+    async def get_account_by_name_and_site(self, name: str, site: Account.Site) -> Optional[Account]:
+        async with self.session() as session:
+            return (
+                await session.scalars(
+                    select(Account)
+                    .where(
+                        Account.name == name,
+                        Account.site == site,
+                    )
+                )
+            ).one_or_none()
+
+    async def remove_account(self, account_id: int):
+        async with self.session() as session:
+            await session.execute(
+                delete(Account)
+                .where(Account.id == account_id)
+            )
+
+    async def create_account(self, name: str, api_key: str, site: Account.Site, client_id: Optional[int]):
+        async with self.session() as session:
+            account = Account(
+                name=name,
+                site=site,
+                api_key=api_key,
+                client_id=client_id,
+            )
+            session.add(account)
+            await session.commit()
 
 
 def create_db_manager(
