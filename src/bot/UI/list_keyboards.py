@@ -1,6 +1,6 @@
 from enum import Enum
 
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 from src.db.manager import DbManager
 from src.db.models import Product

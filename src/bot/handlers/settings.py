@@ -1,7 +1,7 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import StatesGroup, State
+from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import Message
 
 from src.bot.handlers.base import BaseHandlerList

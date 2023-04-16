@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Self, Callable
+from typing import Any, Callable, Dict, List, Self
 
 from aiogram import Dispatcher
 from aiogram.types import Message

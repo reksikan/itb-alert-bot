@@ -30,5 +30,3 @@ class AuthMiddleware(BaseMiddleware):
             f'Ваш telegram ID: {message.from_user.id}'
         )
         raise CancelHandler()
-
-

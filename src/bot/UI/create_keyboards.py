@@ -1,7 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 from src.db.manager import DbManager
-from src.db.models import Product, ScheduleTask, IntervalTask
+from src.db.models import IntervalTask, Product, ScheduleTask
 
 
 def type_keyboard(marketplace: Product.Marketplace) -> ReplyKeyboardMarkup:

@@ -1,11 +1,12 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import StatesGroup, State
+from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import Message, ReplyKeyboardRemove
 
-from src.bot.UI.users_keyboards import users_keyboard, user_actions_keyboard, Actions
 from src.bot.handlers.base import BaseHandlerList
+from src.bot.UI.users_keyboards import (Actions, user_actions_keyboard,
+                                        users_keyboard)
 
 
 class UsersHandlerList(BaseHandlerList):

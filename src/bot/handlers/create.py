@@ -1,16 +1,13 @@
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.types import Message, ReplyKeyboardRemove
 
-from src.bot.UI.create_keyboards import (
-    type_keyboard,
-    marketplace_keyboard,
-    products_keyboard,
-    priority_keyboard,
-)
 from src.bot.handlers.base import BaseHandlerList
+from src.bot.UI.create_keyboards import (marketplace_keyboard,
+                                         priority_keyboard, products_keyboard,
+                                         type_keyboard)
 from src.db.models import IntervalTask
 
 

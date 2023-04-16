@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any, Tuple
+from typing import Any, Dict, Optional, Tuple
 
 from aiohttp.client import ClientSession
 from aiologger.loggers.json import JsonLogger

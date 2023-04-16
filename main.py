@@ -5,11 +5,10 @@ from aiologger.loggers.json import JsonLogger
 import settings
 from src.bot.handlers.create import CreateHandlerList
 from src.bot.handlers.list import ListHandlerList
-from src.bot.handlers.users import UsersHandlerList
 from src.bot.handlers.settings import SettingsHandlerList
-
+from src.bot.handlers.users import UsersHandlerList
+from src.bot.middleware import AuthMiddleware, common_error_handler
 from src.db.manager import create_db_manager
-from src.bot.middleware import common_error_handler, AuthMiddleware
 
 logger = JsonLogger(__name__)
 

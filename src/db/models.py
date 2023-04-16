@@ -2,8 +2,9 @@ from datetime import date
 from enum import Enum
 from typing import TYPE_CHECKING, List
 
-from sqlalchemy import Date, String, Integer, ForeignKey, Boolean, UniqueConstraint
-from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, relationship
+from sqlalchemy import (Boolean, Date, ForeignKey, Integer, String,
+                        UniqueConstraint)
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 if TYPE_CHECKING:
     class Base(DeclarativeBase, _ColumnExpressionArgument):  # type: ignore # noqa
@@ -127,4 +128,3 @@ class Account(Base):
     site: Mapped[str] = mapped_column(String, nullable=False)
     api_key: Mapped[str] = mapped_column(String, nullable=False)
     client_id: Mapped[int] = mapped_column(Integer, nullable=True, default=None)
-

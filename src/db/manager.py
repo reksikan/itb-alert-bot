@@ -1,17 +1,13 @@
 import subprocess
-from typing import Sequence, Union, Type, Optional
+from typing import Optional, Sequence, Type, Union
 
 from aiologger.loggers.json import JsonLogger
-from sqlalchemy import text, select, exists, and_, not_, or_, delete
-from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    AsyncSession,
-    async_sessionmaker,
-    create_async_engine
-)
+from sqlalchemy import and_, delete, exists, not_, or_, select, text
+from sqlalchemy.ext.asyncio import (AsyncEngine, AsyncSession,
+                                    async_sessionmaker, create_async_engine)
 from sqlalchemy.ext.asyncio.session import _AsyncSessionContextManager
 
-from src.db.models import Admin, Product, ScheduleTask, IntervalTask
+from src.db.models import Admin, IntervalTask, Product, ScheduleTask
 
 logger = JsonLogger.with_default_handlers()
 
@@ -212,7 +208,9 @@ class DbManager:
             )
 
     @staticmethod
-    def get_task_object(task_type: Union[ScheduleTask.Type, IntervalTask.Type]) -> Type[Union[ScheduleTask, IntervalTask]]:
+    def get_task_object(
+        task_type: Union[ScheduleTask.Type, IntervalTask.Type]
+    ) -> Type[Union[ScheduleTask, IntervalTask]]:
         if task_type in (ScheduleTask.Type.DOWN_FOR_CATEGORY, ScheduleTask.Type.DOWN_FOR_KEYWORD):
             return ScheduleTask
         if task_type in (IntervalTask.Type.DOWN_RATE, IntervalTask.Type.DISAPPEARANCE):
